@@ -31,19 +31,17 @@
 
 package com.supermy.spring25.aop.test;
 
-import org.junit.*;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest  {
+public class AppTest {
 
-  @Test
-  public void testApp() {
-    assertTrue( true );
-  }
+	@Test
+	public void testApp() {
+		assertTrue(true);
+	}
 }
