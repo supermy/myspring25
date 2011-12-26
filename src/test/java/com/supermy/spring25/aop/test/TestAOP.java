@@ -9,7 +9,7 @@ import com.supermy.spring25.log.SystemThreadLocalMap;
 public class TestAOP {
 	public static void main(String[] args) {
 		SystemThreadLocalMap.setUserName("测试人员");
-		
+
 		String[] conf = { "classpath*:applicationContext-aop.xml" };
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(conf);
 		UserBean ub = (UserBean) ctx.getBean("userBean");

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 
 /**
  * 用户信息传递到逻辑层
+ * 
  * @author jamesmo
  * @version 创建时间：2011-12-23 下午6:04:07
- *  
+ * 
  */
 @Service
 public class SystemThreadLocalMap extends ThreadLocal<Map<String, String>> {
@@ -28,6 +29,5 @@ public class SystemThreadLocalMap extends ThreadLocal<Map<String, String>> {
 	public static void setUserName(String s) {
 		username.set(s);
 	}
-
 
 }

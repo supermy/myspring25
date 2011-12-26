@@ -26,13 +26,15 @@ public class Log2DB {
 	 * @param time
 	 */
 	public void execAsyncAddUserLog(final String userId, final long time) {
+
 		taskExecutor.execute(new Runnable() {
 			public void run() {
 				try {
 					addUserLog(userId, time);
-					System.out.println(userId+"用户日志记录成功！");
+					System.out.println(userId + "用户日志记录成功！");
 				} catch (Exception e) {
-					System.out.println(userId+"用户日志记录失败！，异常信息：" + e.getMessage());
+					System.out.println(userId + "用户日志记录失败！，异常信息："
+							+ e.getMessage());
 				}
 			}
 		});
