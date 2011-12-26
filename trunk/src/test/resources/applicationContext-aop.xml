@@ -9,12 +9,6 @@
 
 	<aop:aspectj-autoproxy />
 
-	<context:component-scan base-package="com.supermy.spring25.aop">
-		<context:include-filter type="regex"
-			expression=".*" />
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Repository" />
-	</context:component-scan>
 	
 	<context:component-scan base-package="com.supermy.spring25.busi">
 		<context:include-filter type="regex"
@@ -37,5 +31,36 @@
 	  <property name="queueCapacity" value="250" />
 	  -->
 	</bean>	
+	
+	
+	<!-- Aspect 注解-->
+	<context:component-scan base-package="com.supermy.spring25.aop">
+		<context:include-filter type="regex"
+			expression=".*" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	
+	
+	
+	<!-- Aspect 配置-->
+	<bean id="logXmlAspect" class="com.supermy.spring25.aop.XMLInterceptor" />
+	 
+	<aop:config>
+	 
+	   <aop:aspect ref="logXmlAspect" >
+	 
+	   <aop:pointcut id="theExecutionOfSomeFooServiceMethod"
+	      expression="execution(* com.supermy..*.busi..*.*(..))" />
+	 
+	   <aop:around method="doAround" pointcut-ref="theExecutionOfSomeFooServiceMethod"/>
+	 
+	  </aop:aspect>
+	 
+	</aop:config>
+	
+
+	
+	
 
 </beans>

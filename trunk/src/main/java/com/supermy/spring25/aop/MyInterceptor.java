@@ -23,7 +23,7 @@ public class MyInterceptor {
 	 * (..)表示方法的参数可以任意多个如<br>
 	 * [(java.lang.String,java.lang.Integer)表示第一个参数是String,第二个参数是int的方法才会被拦截]<br>
 	 */
-	@Pointcut("execution(* com.supermy.spring25.aop..*.*(..)) || execution(* com.supermy..*.busi..*.*(..)) ")
+	@Pointcut("execution(* com.supermy.spring25.aop111111..*.*(..)) || execution(* com.supermy..*.busi1111..*.*(..)) ")
 	// 定义一个切入点,名称为pointCutMethod(),拦截类的所有方法
 	private void pointCutMethod() {
 		System.out.println("通知");

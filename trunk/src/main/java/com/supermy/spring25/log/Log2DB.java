@@ -30,9 +30,9 @@ public class Log2DB {
 			public void run() {
 				try {
 					addUserLog(userId, time);
-					log.debug("用户日志记录成功！");
+					System.out.println(userId+"用户日志记录成功！");
 				} catch (Exception e) {
-					log.debug("用户日志记录失败！，异常信息：" + e.getMessage());
+					System.out.println(userId+"用户日志记录失败！，异常信息：" + e.getMessage());
 				}
 			}
 		});
