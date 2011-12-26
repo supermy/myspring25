@@ -12,13 +12,18 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.supermy.spring25.log.Log2DB;
+import com.supermy.spring25.log.SystemThreadLocalMap;
 
 @Aspect
 public class LogInterceptor {
 	private final Logger log = Logger.getLogger(LogInterceptor.class);
-
+	
 	@Autowired
 	private Log2DB log2DB;
+	
+	@Autowired
+	private SystemThreadLocalMap threadLocalMap;// 用户信息
+
 
 	/**
 	 * 定义切入点 第一个<br/>
@@ -31,44 +36,51 @@ public class LogInterceptor {
 	@Pointcut("execution(* com.supermy..*.busi..*.*(..)) ")
 	// 定义一个切入点,名称为pointCutMethod(),拦截类的所有方法
 	private void pointCutMethod() {
-		log.debug("日志通知");
+		System.out.println("日志通知");
 	}
 
 	@Before("pointCutMethod()")
 	// 定义前置通知
 	public void doBefore() {
-		log.debug("日志前置通知");
+		System.out.println("日志前置通知");
 	}
 
 	@AfterReturning("pointCutMethod()")
 	// 定义后置通知
 	public void doAfterReturning() {
-		log.debug("日志后置通知");
+		System.out.println("日志后置通知");
 	}
 
 	@AfterThrowing("pointCutMethod()")
 	// 定义例外通知
 	public void doAfterException() {
-		log.debug("日志异常通知");
+		System.out.println("日志异常通知");
 	}
 
 	@After("pointCutMethod()")
 	// 定义最终通知
 	public void doAfter() {
-		log.debug("日志最终通知");
+		System.out.println("日志最终通知");
 	}
 
 	@Around("pointCutMethod()")
 	// 定义环绕通知
 	public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-		log.debug("进入方法");
+		
+		String operationMethodName = pjp.getSignature().getName();
+		
+		String packageName=pjp.getSignature().getDeclaringTypeName();
+		
+		System.out.println("进入方法:"+packageName+"."+operationMethodName);
 		long start = System.currentTimeMillis();
 		Object object = pjp.proceed(); // 必须执行pjp.proceed()方法,如果不执行此方法,业务bean的方法以及后续通知都不执行
 		long end = System.currentTimeMillis();
-		log2DB.execAsyncAddUserLog("admin", (end - start));
-
-		log.debug("退出方法");
+		log2DB.execAsyncAddUserLog(threadLocalMap.getUserName(),(end-start));
+		
+		System.out.println("退出方法");
 		return object;
 	}
+
+	
 
 }
